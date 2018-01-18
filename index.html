@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html>
+ <head>
+    <meta charset="UTF-8">
+    <title>Cool Photo Gallery</title>
+    <link rel="stylesheet" href="stylesheets/normalize.css">
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Poiret+One'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
+
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+    <link rel="stylesheet" href="stylesheets/gallery.css">
+  </head>
   <body>
-    <h1>My Photo Albums App</h1>
-    <div id="app"></div>
+    <h1>My Photo Album App</h1>
+
+    <div class="upload">
+      <input id="photoupload" type="file" accept="image/*">
+      <button id="addphoto" onclick="addPhoto()">
+      Add Photo
+      </button>
+    </div>
+    <div class="photo-holder">
+      <div class="grid" id="photogrid">
+      </div>
+    </div>
 
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.182.0.min.js"></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="js/photo.js"></script>
     <script>
        viewAlbum();
     </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js'></script> 
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+    <script src="js/gallery.js"></script>
     </body>
 </html>

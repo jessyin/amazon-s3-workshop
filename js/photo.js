@@ -13,12 +13,9 @@ var s3 = new AWS.S3({
   apiVersion: '2006-03-01',
   params: {Bucket: albumBucketName}
 });
-function getHtml(template) {
-  return template.join('\n');
-}
 
-function viewAlbum() {
-  //var albumPhotosKey = encodeURIComponent(albumName);
+
+function viewAlbum() {	
   s3.listObjects({}, function(err, data) {
     if (err) {
       return alert('There was an error viewing your album: ' + err.message);
@@ -26,59 +23,17 @@ function viewAlbum() {
     // `this` references the AWS.Response instance that represents the response
     var href = this.request.httpRequest.endpoint.href;
     var bucketUrl = href + albumBucketName + '/';
-
-    var photos = data.Contents.map(function(photo) {
-      var photoKey = photo.Key;
-      var photoUrl = bucketUrl + encodeURIComponent(photoKey);
-      return getHtml([
-        '<span>',
-          '<div>',
-            '<img src="' + photoUrl + '"/>',
-          '</div>',
-          '<div>',
-            '<span onclick="deletePhoto(\'' + photoKey + '\')">',
-              'X',
-            '</span>',
-            '<span>',
-              photoKey,
-            '</span>',
-          '</div>',
-        '<span>',
-      ]);
-    });
-    var message = photos.length ?
-      '<p>Click on the X to delete the photo</p>' :
-      '<p>You do not have any photos in this album. Please add photos.</p>';
-    var htmlTemplate = [
-      '<h2>',
-        'Album: ',
-      '</h2>',
-      message,
-      '<div>',
-        getHtml(photos),
-      '</div>',
-      '<input id="photoupload" type="file" accept="image/*">',
-      '<button id="addphoto" onclick="addPhoto()">',
-        'Add Photo',
-      '</button>',
-      '<button onclick="listAlbums()">',
-        'Back To Albums',
-      '</button>',      
-    ]
-    document.getElementById('app').innerHTML = getHtml(htmlTemplate);
+    addAllPhotos(bucketUrl, data)
   });
 }
 
-function addPhoto(albumName) {
+function addPhoto() {
   var files = document.getElementById('photoupload').files;
   if (!files.length) {
     return alert('Please choose a file to upload first.');
   }
   var file = files[0];
-  var fileName = file.name;
-  var albumPhotosKey = encodeURIComponent(albumName) ;
-
-  var photoKey = albumPhotosKey + fileName;
+  var photoKey = files[0].name;
   s3.upload({
     Key: photoKey,
     Body: file,
