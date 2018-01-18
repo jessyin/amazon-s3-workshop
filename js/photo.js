@@ -15,14 +15,12 @@ var s3 = new AWS.S3({
 });
 
 
-function viewAlbum() {	
+function viewAlbum() {
   s3.listObjects({}, function(err, data) {
     if (err) {
       return alert('There was an error viewing your album: ' + err.message);
     }
-    // `this` references the AWS.Response instance that represents the response
-    var href = this.request.httpRequest.endpoint.href;
-    var bucketUrl = href + albumBucketName + '/';
+    var bucketUrl = "https://s3.amazonaws.com/" + albumBucketName + '/';
     addAllPhotos(bucketUrl, data)
   });
 }
