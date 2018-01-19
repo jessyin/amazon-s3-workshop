@@ -19,7 +19,16 @@ var s3 = new AWS.S3({
 
 //get all the data from the bucket and call addAllPhotos to display it
 function viewAlbum() {
-
+  s3.listObjects({}, function(err, data) {
+    if (err) {
+      return alert('There was an error viewing your album: ' + err.message);
+    }
+    // `this` references the AWS.Response instance that represents the response
+    var href = this.request.httpRequest.endpoint.href;
+    console.log(href)
+    var bucketUrl = "https://s3.amazonaws.com/" + albumBucketName + '/';
+    addAllPhotos(bucketUrl, data)
+  });
 }
 
 //adds a photo to our S3 database
@@ -33,7 +42,17 @@ function addPhoto() {
   var photoKey = files[0].name;
   //TODO: upload the file to s3
 
-
+  s3.upload({
+    Key: photoKey,
+    Body: file,
+    ACL: 'public-read'
+  }, function(err, data) {
+    if (err) {
+      return alert('There was an error uploading your photo: ', err.message);
+    }
+    console.log('Successfully uploaded photo.');
+    viewAlbum();
+  });
 }
 
 
