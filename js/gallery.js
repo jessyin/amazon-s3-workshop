@@ -1,6 +1,6 @@
 
 // external js: masonry.pkgd.js, imagesloaded.pkgd.js
-
+// masonry trick that makes our grid really pretty
 function refreshGrid(){
   var grid = document.querySelector('.grid');
 
@@ -18,7 +18,7 @@ function refreshGrid(){
 
 }
 
-
+//adds all the photos located in the bucket
 function addAllPhotos(bucketUrl, data){
   document.getElementById("photogrid").innerHTML = "";
   for (i = 0; i < data.Contents.length; i++){
