@@ -14,21 +14,24 @@
   </head>
   <body>
     <h1>My Photo Album App</h1>
-
+    <!--Upload widget that allows file uploading -->
     <div class="upload">
       <input id="photoupload" type="file" accept="image/*">
       <button id="addphoto" onclick="addPhoto()">
       Add Photo
       </button>
     </div>
+    <!--Div to hold all the photos we load from s3-->
     <div class="photo-holder">
       <div class="grid" id="photogrid">
       </div>
     </div>
 
+    <!--various relevant js scripts -->
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.182.0.min.js"></script>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="js/photo.js"></script>
+    <!-- start out by loading the album already in the database! -->
     <script>
        viewAlbum();
     </script>

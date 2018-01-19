@@ -19,10 +19,20 @@ var s3 = new AWS.S3({
 
 //get all the data from the bucket and call addAllPhotos to display it
 function viewAlbum() {
-	
+
 }
 
+//adds a photo to our S3 database
 function addPhoto() {
+  //get the file out of the upload widget	
+  var files = document.getElementById('photoupload').files;
+  if (!files.length) {
+    return alert('Please choose a file to upload first.');
+  }
+  var file = files[0];
+  var photoKey = files[0].name;
+  //TODO: upload the file to s3
+
 
 }
 
